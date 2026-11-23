@@ -39,6 +39,47 @@ body:not(.inside) #frame::before{display:none}
 body:not(.inside) #stage{position:absolute!important;top:50%;left:50%;translate:-50% -50%;width:min(100vw,55.46319dvh)!important;aspect-ratio:934/1684}
 @media (orientation:portrait) and (max-width:700px){body:not(.inside) #stage{width:max(100vw,55.46319dvh)!important}}
 body:not(.inside) #forest{object-fit:contain!important;border-radius:0}
+
+@keyframes francescaSnow {
+  to { transform:translate3d(var(--wind),calc(115dvh + 24px),0) rotate(var(--turn)); }
+}
+@keyframes francescaMeteor {
+  0%,8% { opacity:0; transform:translate(0,0) rotate(-20deg); }
+  11% { opacity:.96; }
+  28%,100% { opacity:0; transform:translate(-145%,7dvh) rotate(-20deg); }
+}
+@keyframes francescaAurora {
+  from { opacity:.45; transform:translateX(-7%) skewX(-13deg) rotate(-12deg); }
+  to { opacity:.85; transform:translateX(8%) skewX(10deg) rotate(-4deg); }
+}
+#scene .fx .aurora {
+  left:55%; right:12%; top:4%; height:10%;
+  background:repeating-linear-gradient(108deg,#acffe429 0 1px,transparent 2px 5px),
+    linear-gradient(115deg,transparent 6%,#a88dff99 29%,#7cf5d5bd 53%,#b2ffe788 69%,transparent 95%);
+  mask-image:radial-gradient(ellipse,#000 15%,transparent 72%);
+  filter:blur(2px);
+  mix-blend-mode:screen;
+}
+#scene .fx .meteor {
+  top:6%; right:12%; width:clamp(84px,29%,200px); height:4px;
+  border-radius:90% 30% 30% 90%;
+  background:linear-gradient(90deg,#fff9e6 0 3%,#ffcfa3b0 10%,#d8c2ffaa 33%,transparent 98%);
+  filter:drop-shadow(0 0 3px #f5d3c9);
+}
+#scene .fx .flake {
+  width:var(--size); height:var(--size);
+}
+#scene .fx .flake::before {
+  content:""; display:block; width:100%; height:100%;
+  background:linear-gradient(25deg,#aeb3ed 8%,#f6dfc9 54%,#fff4e9 76%,#c6bbeb);
+  clip-path:polygon(50% 0,55% 8%,55% 40%,87% 21%,96% 26%,60% 50%,98% 69%,89% 76%,55% 58%,55% 99%,46% 96%,46% 57%,12% 80%,4% 74%,40% 51%,3% 31%,9% 22%,46% 42%,46% 5%);
+  animation:crystal-shimmer var(--glint) ease-in-out infinite alternate;
+}
+@keyframes crystal-shimmer {
+  from { opacity:.53; transform:scaleX(.72); }
+  to { opacity:1; transform:scaleX(1); }
+}
+@media(prefers-reduced-motion:reduce) { #scene .fx { display:none; } }
 </style><main><header><b>✦ Adventsatelier</b><small>WINTER 2026</small><select id="world" aria-label="Kalender wählen"></select></header><article><small id="tag"></small><h1 id="title"></h1><p id="intro"></p><div id="frame"><div id="stage"><div id="scene"><canvas id="art" width="800" height="360" aria-label="Illustrierte Winterwelt"></canvas><img id="forest" src="waldlichtung-breit.svg" alt="Weihnachtliche Waldlichtung mit 24 nummerierten Christbaumkugeln und Waldtieren"><div class="fx" aria-hidden="true"><div class="aurora"></div><div class="meteor"></div></div></div><div class="grid" id="days"></div></div></div><button id="back">Zurück zum Kalender</button><div id="panel" tabindex="-1"></div><div id="actions"></div><p id="msg" role="status"></p></article><div class="row"><h2>Dezember</h2><label><input type="checkbox" id="test"> Testmodus</label></div><footer><button id="music">♫ Musik einschalten</button> <span id="saved"></span></footer></main><script>
 const worlds=[
 null,
@@ -99,5 +140,5 @@ function code(){let keys=choice?['Mitte','Links','Rechts']:['Rechts','Mitte','Li
 const objects=[['Schlüssel','🗝️',73,54],['Brief','✉️',27,82],['Taschenuhr','⌚',88,86],['Garn','🧶',9,74],['Kerze','🕯️',37,58],['Pinsel','🖌️',54,77],['Feder','🪶',60,28],['Brille','👓',35,28],['Tasse','☕',66,88]];
 function hunt(){clear();playing=true;found=[];hints=0;deadline=Date.now()+60000;panel('Das verlassene Atelier','Finde Schlüssel, Brief und Taschenuhr im Bild.');function tick(){let left=Math.ceil((deadline-Date.now())/1000);if(left<=0){clear();panel('Die Atelieruhr schlägt','Du kannst die Suche noch einmal beginnen.');act('Erneut suchen',hunt);return false}$('msg').textContent=left+' s · '+found.length+'/3 gefunden · '+hints+' Hinweise';return true}objects.forEach(([name,icon,x,y],i)=>{let b=document.createElement('button');b.textContent=icon;b.setAttribute('aria-label',name);b.style.left=x+'%';b.style.top=y+'%';b.dataset.obj=i;$('scene').append(b);b.onclick=()=>{if(!playing||!tick()||i>2||found.includes(i))return;found.push(i);b.hidden=true;if(found.length===3){let points=Math.max(0,300+Math.ceil((deadline-Date.now())/1000)*5-hints*50);finish('Unter dem Brief liegt eine Eintrittskarte für zwei. Deine erste Albumseite ist komplett. '+points+' Punkte.')}else tick()}});act('Hinweis · −50 Punkte',()=>{if(!tick())return;let b=[...document.querySelectorAll('#scene button')].slice(0,3).find(b=>!b.hidden);if(!b.classList.contains('hint')){b.classList.add('hint');hints++}tick()});clock=setInterval(tick,250);tick();$('scene').scrollIntoView({block:'center'})}
 worlds.forEach((d,i)=>{if(d&&(fixed===null||i===fixed))world.add(new Option(d[0],i))});world.onchange=()=>{w=Number(world.value);home()};$('test').onchange=home;
-$('music').onclick=async()=>{if(audio){clearInterval(musicTimer);await audio.close();audio=null;$('music').textContent='♫ Musik einschalten';return}audio=new (window.AudioContext||window.webkitAudioContext)();await audio.resume();let n=0;function note(){let o=audio.createOscillator(),g=audio.createGain(),t=audio.currentTime;o.frequency.value=[392,494,587,494,440,523,659,523][n++%8];g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.045,t+.03);g.gain.exponentialRampToValueAtTime(.0001,t+.7);o.connect(g);g.connect(audio.destination);o.start();o.stop(t+.72)}note();musicTimer=setInterval(note,750);$('music').textContent='♫ Musik ausschalten'};for(let i=0;i<55;i++){let f=document.createElement('span');f.className='flake';f.textContent='❄';f.style.cssText=`--left:${Math.random()*100}%;--opacity:${.25+Math.random()*.65};--size:${5+Math.random()*9}px;--duration:${8+Math.random()*11}s;--delay:${-Math.random()*19}s;--wind:${(Math.random()-.5)*85}px`;$('scene').querySelector('.fx').append(f)}home();
+$('music').onclick=async()=>{if(audio){clearInterval(musicTimer);await audio.close();audio=null;$('music').textContent='♫ Musik einschalten';return}audio=new (window.AudioContext||window.webkitAudioContext)();await audio.resume();let n=0;function note(){let o=audio.createOscillator(),g=audio.createGain(),t=audio.currentTime;o.frequency.value=[392,494,587,494,440,523,659,523][n++%8];g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.045,t+.03);g.gain.exponentialRampToValueAtTime(.0001,t+.7);o.connect(g);g.connect(audio.destination);o.start();o.stop(t+.72)}note();musicTimer=setInterval(note,750);$('music').textContent='♫ Musik ausschalten'};for(let i=0;i<55;i++){let f=document.createElement('span');f.className='flake';f.style.cssText=`--left:${Math.random()*100}%;--opacity:${.22+Math.random()*.57};--size:${2.5+Math.random()*6}px;--duration:${8+Math.random()*11}s;--delay:${-Math.random()*19}s;--wind:${(Math.random()-.5)*85}px;--turn:${Math.random()*280-140}deg;--glint:${1.6+Math.random()*3}s`;$('scene').querySelector('.fx').append(f)}home();
 </script></html>
