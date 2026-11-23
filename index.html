@@ -1,4 +1,4 @@
-<!doctype html><html lang="de"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Adventsatelier · Winter 2026</title><style>
+<!doctype html><html lang="de"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Adventsatelier · Winter 2026</title><style>
 *{box-sizing:border-box}body{margin:0;background:#101b24;color:#fff4e2;font:16px/1.55 system-ui,sans-serif}main{max-width:840px;margin:auto;padding:18px}header,nav,.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:space-between}header{border-bottom:1px solid #ffffff38;padding-bottom:12px}small,label{font-size:.8rem;letter-spacing:.07em}select,button{font:inherit;color:inherit;background:#22343d;border:1px solid #ffffff45;border-radius:9px;padding:10px 14px;cursor:pointer}button:disabled{opacity:.48;cursor:default}button:focus-visible,select:focus-visible{outline:3px solid gold}button:hover:enabled{border-color:#ffdc8d}h1,h2{font:normal clamp(2rem,6vw,3.6rem)/1.04 Georgia;margin:12px 0}h2{font-size:1.8rem}p{max-width:65ch}canvas{display:block;width:100%;border-radius:14px;margin:16px 0;background:#18273a}.grid{display:grid;grid-template-columns:repeat(8,1fr);gap:7px}.grid button{padding:8px 1px;min-height:44px;font-family:Georgia;font-size:1.22rem}.active{background:#ffdf9c;color:#25202a}article{padding:17px 0}#actions{display:flex;gap:8px;flex-wrap:wrap}#scene{position:relative}#scene button{position:absolute;transform:translate(-50%,-50%);background:transparent;border:0;font-size:clamp(19px,4vw,32px);padding:0;min-width:44px;min-height:44px}.hint{outline:3px dashed gold}footer{margin:24px 0;color:#c7c8bd}input{width:20px;height:20px;vertical-align:middle}@media(max-width:550px){.grid{grid-template-columns:repeat(6,1fr)}main{padding:12px}select{max-width:100%}}
 
 #frame{overflow:hidden;border-radius:14px;margin:1rem 0;isolation:isolate}
@@ -22,14 +22,19 @@ body:not(.inside) #art{height:clamp(320px,56vw,450px);object-fit:cover}
 /* Kugel öffnet sich wie bei Emilia: Bildausschnitt als aufklappende Halbschale */
 #days button{perspective:600px;overflow:visible}
 #days button.active{background:radial-gradient(circle,#fffbe0 5%,#ffca61 34%,#a143c5 65%,#120b40 90%)!important;box-shadow:0 0 16px #ffe482!important}
-#days button .leaf{background-image:url('3EC69EB5-99A0-40D0-B3C2-961367901F2E.png')!important;background-size:1000% 2000%!important;background-position:var(--bx) var(--by)!important;background-repeat:no-repeat!important;backface-visibility:visible!important;transform-origin:left center!important;opacity:1!important}
+#days button .leaf{background-image:url('waldlichtung.svg')!important;background-size:1000% 2000%!important;background-position:var(--bx) var(--by)!important;background-repeat:no-repeat!important;backface-visibility:visible!important;transform-origin:left center!important;opacity:1!important}
 #days button.active .leaf{box-shadow:inset 0 0 4px #fff8,0 0 4px #ffecb5;border-radius:50%}
 
 /* Originalbild unverzerrt; freie Displayränder mit passender Waldkulisse auffüllen */
-@media(max-width:700px){body:not(.inside) #scene{isolation:isolate;background:#132339}body:not(.inside) #scene::before{content:"";position:absolute;inset:-28px;background:url('3EC69EB5-99A0-40D0-B3C2-961367901F2E.png') center center/cover no-repeat;filter:blur(24px) brightness(.72);transform:scale(1.09);z-index:0}body:not(.inside) #forest{object-fit:contain!important;z-index:1}body:not(.inside) #scene .fx{z-index:2}body:not(.inside) #days{z-index:3}body:not(.inside) #days button{pointer-events:none}body:not(.inside) #days button.active{pointer-events:auto}}
+@media(max-width:700px){body:not(.inside) #scene{isolation:isolate;background:#132339}body:not(.inside) #scene::before{content:"";position:absolute;inset:-28px;background:url('waldlichtung.svg') center center/cover no-repeat;filter:blur(24px) brightness(.72);transform:scale(1.09);z-index:0}body:not(.inside) #forest{object-fit:contain!important;z-index:1}body:not(.inside) #scene .fx{z-index:2}body:not(.inside) #days{z-index:3}body:not(.inside) #days button{pointer-events:none}body:not(.inside) #days button.active{pointer-events:auto}}
 /* Originalformat mit passender Randauffüllung statt Verzerrung */
-@media(max-width:700px){body:not(.inside) #frame{display:grid;place-items:center;isolation:isolate}body:not(.inside) #frame::before{content:"";position:absolute;inset:-24px;background:url('3EC69EB5-99A0-40D0-B3C2-961367901F2E.png') center/cover no-repeat;filter:blur(22px) brightness(.72);z-index:-1}body:not(.inside) #stage{position:relative!important;width:min(100vw,44.444444dvh)!important;height:auto!important;aspect-ratio:800/1800;max-height:100dvh}body:not(.inside) #scene{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;overflow:visible}body:not(.inside) #scene::before{display:none!important}body:not(.inside) #forest{inset:0!important;width:100%!important;height:100%!important;object-fit:fill!important}body:not(.inside) #days{inset:0!important;width:100%!important;height:100%!important}body:not(.inside) #days button{width:11%!important;height:4.8%!important}}
-</style><main><header><b>✦ Adventsatelier</b><small>WINTER 2026</small><select id="world" aria-label="Kalender wählen"></select></header><article><small id="tag"></small><h1 id="title"></h1><p id="intro"></p><div id="frame"><div id="stage"><div id="scene"><canvas id="art" width="800" height="360" aria-label="Illustrierte Winterwelt"></canvas><img id="forest" src="3EC69EB5-99A0-40D0-B3C2-961367901F2E.png" alt="Weihnachtliche Waldlichtung mit 24 nummerierten Christbaumkugeln und Waldtieren"><div class="fx" aria-hidden="true"><div class="aurora"></div><div class="meteor"></div></div></div><div class="grid" id="days"></div></div></div><button id="back">Zurück zum Kalender</button><div id="panel" tabindex="-1"></div><div id="actions"></div><p id="msg" role="status"></p></article><div class="row"><h2>Dezember</h2><label><input type="checkbox" id="test"> Testmodus</label></div><footer><button id="music">♫ Musik einschalten</button> <span id="saved"></span></footer></main><script>
+@media(max-width:700px){body:not(.inside) #frame{display:grid;place-items:center;isolation:isolate}body:not(.inside) #frame::before{content:"";position:absolute;inset:-24px;background:url('waldlichtung.svg') center/cover no-repeat;filter:blur(22px) brightness(.72);z-index:-1}body:not(.inside) #stage{position:relative!important;width:min(100vw,44.444444dvh)!important;height:auto!important;aspect-ratio:800/1800;max-height:100dvh}body:not(.inside) #scene{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;overflow:visible}body:not(.inside) #scene::before{display:none!important}body:not(.inside) #forest{inset:0!important;width:100%!important;height:100%!important;object-fit:fill!important}body:not(.inside) #days{inset:0!important;width:100%!important;height:100%!important}body:not(.inside) #days button{width:11%!important;height:4.8%!important}}
+body:not(.inside) #frame{position:fixed;inset:0;width:100%;height:100dvh;display:grid;place-items:center;margin:0;border-radius:0;background:center/cover url(waldlichtung.svg)}
+body:not(.inside) #stage{width:min(100vw,46.15385dvh)!important;height:auto!important;aspect-ratio:852/1846;max-height:none}
+@media (orientation:portrait) and (max-width:600px) and (min-aspect-ratio:6/13) and (max-aspect-ratio:3/5){body:not(.inside) #stage{width:100vw!important}}
+#frame{overflow:hidden}body:not(.inside) #days button{width:var(--w)!important;height:var(--h)!important;pointer-events:auto}#days button .leaf{background:none!important}#days button.revealing{background:radial-gradient(#fffae6,#ffce68,#72464d)!important}#days button.revealing .leaf{background:url(waldlichtung.svg) var(--pos)/var(--img) no-repeat!important}
+.inside #frame,.inside #intro,.inside #title,.inside #tag,.inside header{display:none}
+</style><main><header><b>✦ Adventsatelier</b><small>WINTER 2026</small><select id="world" aria-label="Kalender wählen"></select></header><article><small id="tag"></small><h1 id="title"></h1><p id="intro"></p><div id="frame"><div id="stage"><div id="scene"><canvas id="art" width="800" height="360" aria-label="Illustrierte Winterwelt"></canvas><img id="forest" src="waldlichtung.svg" alt="Weihnachtliche Waldlichtung mit 24 nummerierten Christbaumkugeln und Waldtieren"><div class="fx" aria-hidden="true"><div class="aurora"></div><div class="meteor"></div></div></div><div class="grid" id="days"></div></div></div><button id="back">Zurück zum Kalender</button><div id="panel" tabindex="-1"></div><div id="actions"></div><p id="msg" role="status"></p></article><div class="row"><h2>Dezember</h2><label><input type="checkbox" id="test"> Testmodus</label></div><footer><button id="music">♫ Musik einschalten</button> <span id="saved"></span></footer></main><script>
 const worlds=[
 null,
 null,
@@ -52,38 +57,37 @@ setInterval(scene,matchMedia('(prefers-reduced-motion: reduce)').matches?60000:1
 function clear(){clearInterval(clock);playing=false;$('panel').replaceChildren();$('actions').replaceChildren();$('msg').textContent='';document.querySelectorAll('#scene button').forEach(b=>b.remove())}
 function panel(title,body){let h=document.createElement('h2'),p=document.createElement('p');h.textContent=title;p.textContent=body;$('panel').append(h,p)}
 
-let opening=false;
-async function openDoor(){
-  if(opening||document.body.classList.contains('inside'))return;
-  const door=dayGrid.querySelector('.active');
-  if(!door||door.disabled)return;
-  opening=true;
-  const stage=$('stage'), leaf=door.querySelector('.leaf');
-  const view=stage.getBoundingClientRect(), slot=door.getBoundingClientRect();
-  const x=slot.left-view.left+slot.width/2, y=slot.top-view.top+slot.height/2;
-  const animations=[];
-  try{
-    if(!matchMedia('(prefers-reduced-motion: reduce)').matches && leaf.animate){
-      stage.style.transformOrigin=x+'px '+y+'px';
-      animations.push(leaf.animate([{transform:'rotateY(0deg)'},{transform:'rotateY(-109deg)'}],
-        {duration:1000,easing:'ease-in-out',fill:'forwards'}));
-      await animations[0].finished;
-      animations.push(stage.animate([{transform:'none',opacity:1},{transform:'translate('+(view.width/2-x)+'px,'+(view.height/2-y)+'px) scale('+Math.max(view.width/slot.width,view.height/slot.height)+')',opacity:.15}],
-        {duration:2000,easing:'ease-in-out',fill:'forwards'}));
-      await animations[1].finished;
-    }
-  }finally{
-    animations.forEach(a=>a.cancel());
-    opening=false;
-  }
-  document.body.classList.add('inside');
-  start();
-  $('panel').focus({preventScroll:true});
+let opening=false,day=1;
+function motion(){return !matchMedia('(prefers-reduced-motion: reduce)').matches}
+function zoomFrames(button){
+ const stage=$('stage'), box=stage.getBoundingClientRect(), target=button.getBoundingClientRect();
+ const x=target.left-box.left+target.width/2,y=target.top-box.top+target.height/2;
+ stage.style.transformOrigin=x+'px '+y+'px';
+ return [{transform:'none'},{transform:'translate('+(box.width/2-x)+'px,'+(box.height/2-y)+'px) scale(22)'}];
 }
-$('back').onclick=async()=>{if(opening)return;opening=true;const stage=$('stage');if(!matchMedia('(prefers-reduced-motion: reduce)').matches){const a=stage.animate([{transform:'scale(6)',opacity:.15},{transform:'scale(1)',opacity:1}],{duration:2000,easing:'ease-in-out'});await a.finished;}opening=false;home()};
-
-function grid(){dayGrid.replaceChildren();const ornaments=[[8,325,422],[21,440,439],[3,530,457],[16,246,567],[1,370,558],[12,485,573],[23,582,577],[18,310,695],[9,440,698],[14,551,703],[5,172,821],[22,286,823],[4,378,818],[11,483,824],[19,579,827],[7,239,957],[24,346,960],[2,448,963],[15,531,965],[10,602,965],[20,235,1090],[6,326,1090],[17,425,1090],[13,534,1090]];for(const [i,x,y] of ornaments){let b=document.createElement('button');b.disabled=i!==1||(!$('test').checked&&dateKey<20261201);b.title=i===1?'Erstes Türchen':'Für die gemeinsame Ausarbeitung vorgesehen';if(i===1)b.className='active';const leaf=document.createElement('span');leaf.className='leaf';leaf.textContent=i;b.append(leaf);b.setAttribute('aria-label','Weihnachtskugel '+i);b.style.left=(x/800*100)+'%';b.style.top=(y/1800*100)+'%';b.style.setProperty('--bx',(x/800*100)+'%');b.style.setProperty('--by',(y/1800*100)+'%');b.onclick=openDoor;dayGrid.append(b)}}
-function home(){document.body.classList.remove('inside');clear();let d=worlds[w];$('tag').textContent=d[2];$('title').textContent=d[1];$('intro').textContent=d[3];try{progress=JSON.parse(localStorage.getItem('advent26-v1-'+w))||{}}catch{progress={}}$('saved').textContent=progress.done?'1 von 24 geöffnet':'';scene();grid();if($('test').checked||dateKey>=20261201)act(progress.done?'Erstes Türchen erneut spielen':'Erstes Türchen öffnen',openDoor)}
+async function openDoor(number=1){
+ if(opening)return;
+ const button=dayGrid.children[number-1];if(!button||button.disabled)return;
+ opening=true;day=number;
+ try{
+ if(motion()){
+ button.classList.add('revealing');
+ const lid=button.firstChild.animate([{transform:'rotateY(0deg)'},{transform:'rotateY(-115deg)'}],{duration:1000,fill:'forwards'});
+ await lid.finished;
+ await $('stage').animate(zoomFrames(button),{duration:2000,easing:'ease-in-out'}).finished;
+ lid.cancel();button.classList.remove('revealing');
+ }
+ document.body.classList.add('inside');clear();panel(number+'. Dezember','');$('panel').focus();
+ }finally{opening=false}
+}
+$('back').onclick=async()=>{if(opening)return;opening=true;try{home();const b=dayGrid.children[day-1];if(motion())await $('stage').animate(zoomFrames(b).reverse(),{duration:2000,easing:'ease-in-out'}).finished;b.focus({preventScroll:true})}finally{opening=false}};
+function grid(){dayGrid.replaceChildren();[[380,417,63],[476,902,37],[570,305,29],[391,716,41],[161,730,36],[326,1057,43],[229,878,48],[337,260,40],[481,572,48],[646,885,38],[514,735,46],[535,453,48],[578,1040,44],[613,589,47],[564,897,35],[236,450,45],[440,1055,56],[339,592,48],[625,728,37],[215,1034,48],[461,296,40],[290,754,48],[636,443,33],[359,902,67]].forEach(([x,y,r],i)=>{
+ const size=2*r*.88,b=document.createElement('button'),leaf=document.createElement('span');
+ leaf.className='leaf';b.append(leaf);b.setAttribute('aria-label','Kugel '+(i+1));b.disabled=!$('test').checked && new Date()<new Date(2026,11,i+1);
+ b.style.cssText='left:'+x/852*100+'%;top:'+y/1846*100+'%;--w:'+size/852*100+'%;--h:'+size/1846*100+'%;--img:'+852/size*100+'% '+1846/size*100+'%;--pos:'+(x-size/2)/(852-size)*100+'% '+(y-size/2)/(1846-size)*100+'%';
+ b.onclick=()=>openDoor(i+1);dayGrid.append(b);
+})}
+function home(){document.body.classList.remove('inside');clear();let d=worlds[w];$('tag').textContent=d[2];$('title').textContent=d[1];$('intro').textContent=d[3];try{progress=JSON.parse(localStorage.getItem('advent26-v1-'+w))||{}}catch{progress={}}$('saved').textContent=progress.done?'1 von 24 geöffnet':'';scene();grid();if($('test').checked||dateKey>=20261201)act(progress.done?'Erstes Türchen erneut spielen':'Erstes Türchen öffnen',()=>openDoor(1))}
 function start(){clear();let d=worlds[w];panel(d[4],d[5]);if(w===4)act('Suche starten · 60 Sekunden',hunt);else for(let i=0;i<2;i++)act(d[6+i],()=>{choice=i;clear();panel(d[4],d[8+i]);if(w===3)code();else act(['Zum Spielertunnel','Den ersten Halt ausrufen','Zum Dorfbrunnen'][w],()=>finish(d[10+i]))});$('panel').scrollIntoView({block:'center'})}
 function finish(s){clear();progress={done:true,choice,ending:s};save();panel('Erste Seite im Winteralbum',s);grid();act('Zur Kalenderwelt',home)}
 function code(){let keys=choice?['Mitte','Links','Rechts']:['Rechts','Mitte','Links'];sequence=[];$('msg').textContent='Funkfolge merken: '+keys.join(' → ');act('Funkfolge eingeben',()=>{$('actions').replaceChildren();$('msg').textContent='Tippe die drei Sektoren in der richtigen Reihenfolge.';for(let k of ['Links','Mitte','Rechts'])act(k,()=>{if(k!==keys[sequence.length]){sequence=[];$('msg').textContent='Funkstörung. Noch einmal: '+keys.join(' → ');return}sequence.push(k);$('msg').textContent=sequence.join(' → ');if(sequence.length===3)finish(worlds[w][10+choice])})})}
